@@ -80,7 +80,7 @@ public class MovingBoard : MonoBehaviour
             if (enemy.GetComponent<EnemyScript>().testAttack(knight))
             {
                 this.canMove = false;
-                knight.canMove = false;
+                knight.GetComponent<KnightScript>().canMove = false;
             }
             
             if (enemy.GetComponent<EnemyScript>().testDie(knight))
@@ -127,9 +127,21 @@ public class MovingBoard : MonoBehaviour
         }
     }
 
+    private bool CheckEnemyConflicts(GameObject testEnemy)
+    {
+        foreach(GameObject enemy in enemies)
+        {
+            if (testEnemy.GetComponent<EnemyScript>().testConflict(enemy))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void SpawnRowNoEnemies(float atHeight)
     {
-        bool hasSpawnedEnemy = false;
 
         for(float i = 0.0f; i < (float)boardWidth; i++)
         {
@@ -200,6 +212,11 @@ public class MovingBoard : MonoBehaviour
             Vector3 newPosition = new Vector3(tile.GetComponent<Transform>().position.x,
                                         tile.GetComponent<Transform>().position.y,
                                         rookScript.GetComponent<Transform>().position.z);
+
+            if (this.CheckEnemyConflicts(rookPrefab) == true)
+            {
+                return false;
+            }
 
             GameObject newRook = Instantiate(rookPrefab, newPosition, Quaternion.Euler(0, 0, 0));
             

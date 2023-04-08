@@ -31,6 +31,11 @@ public class EnemyScript : MonoBehaviour
         return false;
     }
 
+    public virtual bool testConflict(GameObject enemy)
+    {
+        return false;
+    }
+
     public bool testDie(GameObject knight)
     {
         int knightX = knight.GetComponent<KnightScript>().boardX;
@@ -53,6 +58,8 @@ public class EnemyScript : MonoBehaviour
         }
         return false;
     }
+
+    
 
     public void takeKnight(GameObject knight)
     {

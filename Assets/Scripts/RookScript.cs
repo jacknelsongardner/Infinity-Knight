@@ -17,6 +17,7 @@ public class RookScript : EnemyScript
         testDestroy();
     }
 
+
     public override bool testAttack(GameObject knight)
     {
         int knightX = knight.GetComponent<KnightScript>().boardX;
@@ -34,6 +35,21 @@ public class RookScript : EnemyScript
             {
                 Debug.Log("rook attacking vertically");
                 takeKnight(knight);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public override bool testConflict(GameObject enemy)
+    {
+        int enemyX = enemy.GetComponent<EnemyScript>().boardX;
+        int enemyY = enemy.GetComponent<EnemyScript>().boardY;
+
+        if (this.transform.position.y <= attackMaxHeight && this.transform.position.y >= attackMinHeight)
+        {
+            if (enemyX == boardX || enemyY == boardY)
+            {
                 return true;
             }
         }
