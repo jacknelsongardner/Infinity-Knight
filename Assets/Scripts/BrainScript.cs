@@ -73,6 +73,12 @@ public class BrainScript : MonoBehaviour
         gameOverMenu.SetActive(false);
     }
 
+    public void Reset()
+    {
+        SaveScore();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void LoadScore()
     {
 

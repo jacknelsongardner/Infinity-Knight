@@ -178,7 +178,7 @@ MonoBehaviour:
   knight: {fileID: 0}
   canMove: 1
   tiles: []
-  baseMovementSpeed: 0.2
+  baseMovementSpeed: 0.3
   speedIncreaseFactor: 1
   boardWidth: 5
   spawnDistance: 8
