@@ -16,7 +16,7 @@ public class BishopScript : EnemyScript
         testDestroy();
     }
 
-
+    // testing if we can attack the player
     public override bool testAttack(GameObject knight)
     {
         int knightX = knight.GetComponent<KnightScript>().boardX;
@@ -24,6 +24,7 @@ public class BishopScript : EnemyScript
 
         float actualHeight = this.transform.TransformPoint(this.transform.position).y;
 
+        // making sure we are in attacking range (not too high, not too low)
         if (actualHeight <= attackMaxHeight && actualHeight >= attackMinHeight)
         {
             // checking diagonal up left and down right
@@ -42,6 +43,7 @@ public class BishopScript : EnemyScript
         return false;
     }
 
+    // tests to see if this enemy is in conflict with another enemy (so that no enemy peices can "back eachother up")
     public override bool testConflict(GameObject enemy)
     {
         int enemyX = enemy.GetComponent<EnemyScript>().boardX;

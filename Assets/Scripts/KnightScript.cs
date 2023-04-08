@@ -12,9 +12,6 @@ public class KnightScript : MonoBehaviour
 
     public int highestBoardY;
 
-    private int DEAD;
-    private int ALIVE;
-
     public int status;
 
     public bool canMove;
@@ -25,9 +22,6 @@ public class KnightScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DEAD = 0;
-        ALIVE = 1;
-
         highestBoardY = 0;
         status = 1;
 
@@ -66,45 +60,57 @@ public class KnightScript : MonoBehaviour
     {
         if (canMove == true)
         {
+            // checking move up 2
             if (tileY == this.boardY + 2)
             {
+                // checking move right 1
                 if (tileX == this.boardX + 1)
                 {
                     return true;
                 }
+                // checking move left 1
                 else if (tileX == this.boardX - 1)
                 {
                     return true;
                 }
             }
+            // checking move down 2
             else if (tileY == this.boardY - 2)
             {
+                // checking move right one
                 if (tileX == this.boardX + 1)
                 {
                     return true;
                 }
+                // checking move left one
                 else if (tileX == this.boardX - 1)
                 {
                     return true;
                 }
             }
+            // checking move up one
             else if (tileY == this.boardY + 1)
             {
+                // checking move right 2
                 if (tileX == this.boardX + 2)
                 {
                     return true;
                 }
+                // checking move left 2
                 else if (tileX == this.boardX - 2)
                 {
                     return true;
                 }
             }
+            // checking move down one
             else if (tileY == this.boardY - 1)
             {
+                // checking move right 2
                 if (tileX == this.boardX + 2)
                 {
                     return true;
                 }
+                // checking move left 2
                 else if (tileX == this.boardX - 2)
                 {
                     return true;
@@ -113,13 +119,13 @@ public class KnightScript : MonoBehaviour
         }
         else if (canMove == false)
         {
-            Debug.Log("can't move!");
+            // we must not be allowed to move ANYWHERE :/
+            Debug.Log("can't move ANYWHERE!");
             return false;
         }
 
-
-
-        Debug.Log("can't go there!!!" + tileY);
+        // we can't move to that spot (not compatable) 
+        Debug.Log("can't go there!!! pick someplace else silly :P" + tileY);
         
         return false;
     }

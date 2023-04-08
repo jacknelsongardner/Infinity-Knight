@@ -6,14 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class BrainScript : MonoBehaviour
 {
-    private Camera mainCamera;
-
     public GameObject gameBoard;
 
     public GameObject knight;
-
-    public GameObject gameOverMenu;
-    public GameObject pauseMenu;
 
     public Text scoreText;
     public Text highScoreText;
@@ -21,15 +16,7 @@ public class BrainScript : MonoBehaviour
     public Text gameOverMessage;
 
     public int playerScore;
-
     public int highScore;
-
-    public int level;
-    public int levelIncrements;
-
-    public float gameSpeed;
-
-    public int timesIncreasedSpeed;
 
     public bool hasLost;
     public bool isPaused;
@@ -38,7 +25,6 @@ public class BrainScript : MonoBehaviour
     void Start()
     {
         playerScore = 0;
-        timesIncreasedSpeed = 1;
         LoadScore();
 
         gameOverMessage.gameObject.SetActive(false);
@@ -47,10 +33,9 @@ public class BrainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // updating score (front and backend)
         UpdateScore();
         UpdateScoreLabels();
-
-        IncreaseGameSpeed();
 
         // checking if f or p button is pressed to pause the game (FREEZE!)
         if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.P))
@@ -60,46 +45,43 @@ public class BrainScript : MonoBehaviour
         }
     }
 
-    public void IncreaseGameSpeed()
-    {
-        if (playerScore >= timesIncreasedSpeed * 5)
-        {
-            gameBoard.GetComponent<MovingBoard>().IncrementSpeedIncreaseFactor(.25f);
-            timesIncreasedSpeed += 1;
-        }
-
-    }
+    // updating the score on the backend
     public void UpdateScore()
     {
+        // checking to see if the player has gotten any higher
         this.playerScore = knight.GetComponent<KnightScript>().highestBoardY;
 
+        // if the player score is bigger than the high score, set it to the high score!
         if (playerScore > highScore)
         {
             highScore = playerScore;
         }
     }
 
+    // updating the score labels (frontend)
     public void UpdateScoreLabels()
     {
         scoreText.text = playerScore.ToString();
         highScoreText.text = highScore.ToString();
     }
 
+    // if we lose :(
     public void Lose()
     {
         hasLost = true;
 
+        // making sure the knight can't move
         this.knight.GetComponent<KnightScript>().canMove = false;
         this.gameBoard.GetComponent<MovingBoard>().canMove = false;
 
+        // show the gameover message
         gameOverMessage.gameObject.SetActive(true);
-
-        //gameOverMenu.SetActive(true);
-        //pauseMenu.SetActive(false);
     }
 
+    // pauses the game
     public void Pause()
     {
+        // if we haven't lost, and we aren't paused, PAUSE
         if (hasLost != true && isPaused == false)
         {
             isPaused = true;
@@ -107,44 +89,46 @@ public class BrainScript : MonoBehaviour
             this.knight.GetComponent<KnightScript>().canMove = false;
             this.gameBoard.GetComponent<MovingBoard>().canMove = false;
         }
+        // if we're already paused, RESUME
         else if (isPaused == true)
         {
             Resume();
         }
-        //pauseMenu.SetActive(true);
-        //gameOverMenu.SetActive(false);
     }
 
+    // resumes the game (from a pause)
     public void Resume()
     {
+        // so long as we haven't lost yet...RESUME
         if (hasLost != true)
         {
             isPaused = false;
             this.knight.GetComponent<KnightScript>().canMove = true;
             this.gameBoard.GetComponent<MovingBoard>().canMove = true;
         }
-        //pauseMenu.SetActive(true);
-        //gameOverMenu.SetActive(false);
     }
 
-
+    // resets the scene
     public void Reset()
     {
         SaveScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // loads high score from the playerPrefs
     public void LoadScore()
     {
         highScore = PlayerPrefs.GetInt("highScore");
 
     }
 
+    // save the score to the player prefs
     public void SaveScore()
     {
         PlayerPrefs.SetInt("highScore", highScore);
     }
 
+    // changes the scene to the home scene
     public void Home()
     {
         SceneManager.LoadScene("Home");

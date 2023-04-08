@@ -101,5 +101,5 @@ MonoBehaviour:
   highestBoardY: 0
   status: 0
   canMove: 1
-  deathHeightMin: -2.5
+  deathHeightMin: -4
   deathHeightMax: 2.8
