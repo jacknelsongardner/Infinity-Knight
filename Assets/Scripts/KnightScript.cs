@@ -14,6 +14,8 @@ public class KnightScript : MonoBehaviour
 
     public int status;
 
+    public bool canMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,8 @@ public class KnightScript : MonoBehaviour
         ALIVE = 1;
 
         status = 1;
+
+        canMove = true;
 
         this.transform.SetParent(boardParent.transform);
     }
@@ -32,51 +36,61 @@ public class KnightScript : MonoBehaviour
     }
 
     public bool knightCanMove(int tileY, int tileX)
-    { 
-        if (tileY == this.boardY + 2)
+    {
+        if (canMove == true)
         {
-            if (tileX == this.boardX + 1)
+            if (tileY == this.boardY + 2)
             {
-                return true;
+                if (tileX == this.boardX + 1)
+                {
+                    return true;
+                }
+                else if (tileX == this.boardX - 1)
+                {
+                    return true;
+                }
             }
-            else if (tileX == this.boardX - 1)
+            else if (tileY == this.boardY - 2)
             {
-                return true;
+                if (tileX == this.boardX + 1)
+                {
+                    return true;
+                }
+                else if (tileX == this.boardX - 1)
+                {
+                    return true;
+                }
+            }
+            else if (tileY == this.boardY + 1)
+            {
+                if (tileX == this.boardX + 2)
+                {
+                    return true;
+                }
+                else if (tileX == this.boardX - 2)
+                {
+                    return true;
+                }
+            }
+            else if (tileY == this.boardY - 1)
+            {
+                if (tileX == this.boardX + 2)
+                {
+                    return true;
+                }
+                else if (tileX == this.boardX - 2)
+                {
+                    return true;
+                }
             }
         }
-        else if (tileY == this.boardY - 2)
+        else if (canMove == false)
         {
-            if (tileX == this.boardX + 1)
-            {
-                return true;
-            }
-            else if (tileX == this.boardX - 1)
-            {
-                return true;
-            }
+            Debug.Log("can't move!");
+            return false;
         }
-        else if (tileY == this.boardY + 1)
-        {
-            if (tileX == this.boardX + 2)
-            {
-                return true;
-            }
-            else if (tileX == this.boardX - 2)
-            {
-                return true;
-            }
-        }
-        else if (tileY == this.boardY - 1)
-        {
-            if (tileX == this.boardX + 2)
-            {
-                return true;
-            }
-            else if (tileX == this.boardX - 2)
-            {
-                return true;
-            }
-        }
+
+
 
         Debug.Log("can't go there!!!" + tileY);
         

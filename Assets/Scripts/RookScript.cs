@@ -14,7 +14,7 @@ public class RookScript : EnemyScript
     // Update is called once per frame
     void Update()
     {
-        
+        testDestroy();
     }
 
     public override bool testAttack(GameObject knight)
@@ -22,17 +22,21 @@ public class RookScript : EnemyScript
         int knightX = knight.GetComponent<KnightScript>().boardX;
         int knightY = knight.GetComponent<KnightScript>().boardY;
 
-        if (knightX == boardX && knightY != boardY)
+        if (this.transform.position.y <= attackMaxHeight && this.transform.position.y >= attackMinHeight)
         {
-            Debug.Log("rook attacking horizontally");
-            return true;
+            if (knightX == boardX && knightY != boardY)
+            {
+                Debug.Log("rook attacking horizontally");
+                takeKnight(knight);
+                return true;
+            }
+            else if (knightX != boardX && knightY == boardY)
+            {
+                Debug.Log("rook attacking vertically");
+                takeKnight(knight);
+                return true;
+            }
         }
-        else if (knightX != boardX && knightY == boardY)
-        {
-            Debug.Log("rook attacking vertically");
-            return true;
-        }
-
         return false;
     }
 }

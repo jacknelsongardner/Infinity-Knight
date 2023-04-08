@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8020093095674815456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 0.224011, y: 0.22934437, z: 0.20801127}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,6 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416a7926020d77d49bc88be4feb246e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardX: 1
-  boardY: 11
+  boardX: 4
+  boardY: 8
   boardParent: {fileID: 0}
+  attackMaxHeight: 2.5
+  attackMinHeight: -2.5
+  killHeight: -10

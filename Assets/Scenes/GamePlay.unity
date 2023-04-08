@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3be4117c9a45e408e24e301d00b03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knight: {fileID: 5753430459942213786, guid: 37ae1306748ad7e4e90ea13acf210bde, type: 3}
   gameBoard: {fileID: 127570074}
   playerScore: 0
   level: 0

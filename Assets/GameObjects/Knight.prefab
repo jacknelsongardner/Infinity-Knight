@@ -95,9 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d13a2e06641a4d8c6fbcb7c1d5293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardParent: {fileID: 0}
   boardX: 1
   boardY: 1
   status: 0
+  canMove: 0
 --- !u!114 &5753430459942213798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +112,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd615e059f1a944098ac45b7a79a328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTile: {fileID: 0}
-  canMove: 0
+  gameBrain: {fileID: 0}
+  tilePrefab: {fileID: 0}
+  enemies: []
+  rookPrefab: {fileID: 0}
+  bishopPrefab: {fileID: 0}
+  queenPrefab: {fileID: 0}
+  knightPrefab: {fileID: 0}
+  knight: {fileID: 0}
+  canMove: 1
+  tiles: []
   baseMovementSpeed: 0
   speedIncreaseFactor: 0
+  boardWidth: 0
+  spawnDistance: 0
+  spaceMoved: 0
+  rowsSpawned: 0

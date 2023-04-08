@@ -48,9 +48,9 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(3.0f);
         SpawnRowNoEnemies(4.0f);
         SpawnRowNoEnemies(5.0f);
-        SpawnRowNoEnemies(6.0f);
-        SpawnRowNoEnemies(7.0f);
-        SpawnRowNoEnemies(8.0f);
+        //SpawnRowNoEnemies(6.0f);
+        //SpawnRowNoEnemies(7.0f);
+        //SpawnRowNoEnemies(8.0f);
 
 
 
@@ -77,8 +77,16 @@ public class MovingBoard : MonoBehaviour
         // checking all enemy units stats
         foreach(GameObject enemy in enemies)
         {
-            enemy.GetComponent<EnemyScript>().testAttack(knight);
-            enemy.GetComponent<EnemyScript>().testDie(knight);
+            if (enemy.GetComponent<EnemyScript>().testAttack(knight))
+            {
+                this.canMove = false;
+                knight.canMove = false;
+            }
+            
+            if (enemy.GetComponent<EnemyScript>().testDie(knight))
+            {
+                enemies.Remove(enemy);
+            }
         }
 
         if (canMove == true)
@@ -161,7 +169,7 @@ public class MovingBoard : MonoBehaviour
 
             if (hasSpawnedEnemy == false)
             {
-                if (TrySpawnRook(newTile, .1f) == true)
+                if (TrySpawnRook(newTile, .2f) == true)
                 {
                     hasSpawnedEnemy = true;
                 }
@@ -203,6 +211,8 @@ public class MovingBoard : MonoBehaviour
         return false;
         
     }
+
+
 
     public void Stop()
     {
