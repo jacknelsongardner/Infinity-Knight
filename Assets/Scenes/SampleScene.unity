@@ -146,7 +146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127570074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 756715516}
@@ -167,8 +167,14 @@ MonoBehaviour:
   gameBrain: {fileID: 0}
   tilePrefab: {fileID: 6560080640343598169, guid: a45b651b6eb496141814d4a37d4b3716,
     type: 3}
+  enemies: []
+  rookPrefab: {fileID: 8020093095674815456, guid: 16aff56de2b341e4fa8a412806837157,
+    type: 3}
+  bishopPrefab: {fileID: 0}
+  queenPrefab: {fileID: 0}
   knightPrefab: {fileID: 5753430459942213786, guid: 37ae1306748ad7e4e90ea13acf210bde,
     type: 3}
+  knight: {fileID: 0}
   canMove: 1
   tiles: []
   baseMovementSpeed: 0.2
@@ -279,7 +285,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -296,7 +302,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

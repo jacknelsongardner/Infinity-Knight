@@ -8,6 +8,12 @@ public class MovingBoard : MonoBehaviour
     
     public GameObject tilePrefab;
 
+    public List<GameObject> enemies;
+
+    public GameObject rookPrefab;
+    public GameObject bishopPrefab;
+    public GameObject queenPrefab;
+
     public GameObject knightPrefab;
     public GameObject knight;
 
@@ -36,15 +42,15 @@ public class MovingBoard : MonoBehaviour
         rowsSpawned = 0;
 
         // spawning 8 rows in the beginning
-        SpawnRow(0.0f);
-        SpawnRow(1.0f);
-        SpawnRow(2.0f);
-        SpawnRow(3.0f);
-        SpawnRow(4.0f);
-        SpawnRow(5.0f);
-        SpawnRow(6.0f);
-        SpawnRow(7.0f);
-        SpawnRow(8.0f);
+        SpawnRowNoEnemies(0.0f);
+        SpawnRowNoEnemies(1.0f);
+        SpawnRowNoEnemies(2.0f);
+        SpawnRowNoEnemies(3.0f);
+        SpawnRowNoEnemies(4.0f);
+        SpawnRowNoEnemies(5.0f);
+        SpawnRowNoEnemies(6.0f);
+        SpawnRowNoEnemies(7.0f);
+        SpawnRowNoEnemies(8.0f);
 
 
 
@@ -67,6 +73,14 @@ public class MovingBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // checking all enemy units stats
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyScript>().testAttack(knight);
+            enemy.GetComponent<EnemyScript>().testDie(knight);
+        }
+
         if (canMove == true)
         {
             // move the entire game board (including peices) down
@@ -99,13 +113,16 @@ public class MovingBoard : MonoBehaviour
         // checking how much we've moved
         if (spaceMoved >= 1.0f)
         {
-            SpawnRow((float)rowsSpawned);
+            SpawnRowWithEnemies((float)rowsSpawned);
             spaceMoved -= 1.0f;
+
         }
     }
 
-    private void SpawnRow(float atHeight)
+    private void SpawnRowNoEnemies(float atHeight)
     {
+        bool hasSpawnedEnemy = false;
+
         for(float i = 0.0f; i < (float)boardWidth; i++)
         {
             Vector3 clonePosition = new Vector3(this.transform.position.x + i,
@@ -123,6 +140,68 @@ public class MovingBoard : MonoBehaviour
         }
 
         rowsSpawned++;
+    }
+
+    private void SpawnRowWithEnemies(float atHeight)
+    {
+        bool hasSpawnedEnemy = false;
+
+        for (float i = 0.0f; i < (float)boardWidth; i++)
+        {
+            Vector3 clonePosition = new Vector3(this.transform.position.x + i,
+                                        this.transform.position.y + atHeight,
+                                        tilePrefab.GetComponent<Transform>().position.z);
+
+            GameObject newTile = Instantiate(tilePrefab, clonePosition, Quaternion.Euler(0, 0, 0));
+
+            newTile.GetComponent<TileScript>().boardX = (int)i + 1;
+            newTile.GetComponent<TileScript>().boardY = (int)atHeight + 1;
+
+            newTile.GetComponent<TileScript>().boardParent = this.gameObject;
+
+            if (hasSpawnedEnemy == false)
+            {
+                if (TrySpawnRook(newTile, .1f) == true)
+                {
+                    hasSpawnedEnemy = true;
+                }
+            }
+
+            tiles.Add(newTile);
+        }
+
+        rowsSpawned++;
+    }
+
+    private bool TrySpawnRook(GameObject tile, float chance)
+    {
+        // Generate a random number between 0 and 1
+        float randomNumber = Random.Range(0f, 1f);
+
+        // Check if the random number is less than the chance
+        if (randomNumber < chance && tile.GetComponent<TileScript>().boardX != knight.GetComponent<KnightScript>().boardX)
+        {
+            // placing knight on bottom left corner
+            RookScript rookScript = rookPrefab.GetComponent<RookScript>();
+
+            rookScript.boardX = tile.GetComponent<TileScript>().boardX;
+            rookScript.boardY = tile.GetComponent<TileScript>().boardY;
+            
+            rookScript.GetComponent<RookScript>().boardParent = this.gameObject;
+
+            Vector3 newPosition = new Vector3(tile.GetComponent<Transform>().position.x,
+                                        tile.GetComponent<Transform>().position.y,
+                                        rookScript.GetComponent<Transform>().position.z);
+
+            GameObject newRook = Instantiate(rookPrefab, newPosition, Quaternion.Euler(0, 0, 0));
+            
+            enemies.Add(newRook);
+
+            return true;
+        }
+
+        return false;
+        
     }
 
     public void Stop()
