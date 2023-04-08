@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BrainScript : MonoBehaviour
 {
@@ -10,38 +11,74 @@ public class BrainScript : MonoBehaviour
 
     public GameObject knight;
 
+    public GameObject gameOverMenu;
+    public GameObject pauseMenu;
+
+    public Text scoreText;
+    public Text highScoreText;
+
     public int playerScore;
+    public int highScore;
 
     public int level;
     public int levelIncrements;
 
     public float gameSpeed;
 
-    private int WIN;
-    private int LOSE;
-    private int UNDETERMINED;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        WIN = 1;
-        LOSE = 0;
-        UNDETERMINED = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateScore();
+        UpdateScoreLabels();
+    }
+
+    public void UpdateScore()
+    {
         this.playerScore = knight.GetComponent<KnightScript>().highestBoardY;
+
+        if (playerScore > highScore)
+        {
+            highScore = playerScore;
+        }
+    }
+
+    public void UpdateScoreLabels()
+    {
+        scoreText.text = playerScore.ToString();
+        highScoreText.text = highScore.ToString();
     }
 
     public void Lose()
     {
+        this.knight.GetComponent<KnightScript>().canMove = false;
+        this.gameBoard.GetComponent<MovingBoard>().canMove = false;
 
+        gameOverMenu.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 
     public void Pause()
+    {
+        this.knight.GetComponent<KnightScript>().canMove = false;
+        this.gameBoard.GetComponent<MovingBoard>().canMove = false;
+
+        pauseMenu.SetActive(true);
+        gameOverMenu.SetActive(false);
+    }
+
+    public void LoadScore()
+    {
+
+    }
+
+    public void SaveScore()
     {
 
     }
