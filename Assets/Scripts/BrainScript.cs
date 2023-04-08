@@ -18,7 +18,10 @@ public class BrainScript : MonoBehaviour
     public Text scoreText;
     public Text highScoreText;
 
+    public Text gameOverMessage;
+
     public int playerScore;
+
     public int highScore;
 
     public int level;
@@ -26,11 +29,19 @@ public class BrainScript : MonoBehaviour
 
     public float gameSpeed;
 
+    public int timesIncreasedSpeed;
+
+    public bool hasLost;
+    public bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerScore = 0;
+        timesIncreasedSpeed = 1;
         LoadScore();
+
+        gameOverMessage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,8 +49,19 @@ public class BrainScript : MonoBehaviour
     {
         UpdateScore();
         UpdateScoreLabels();
+
+        IncreaseGameSpeed();
     }
 
+    public void IncreaseGameSpeed()
+    {
+        if (playerScore >= timesIncreasedSpeed * 5)
+        {
+            gameBoard.GetComponent<MovingBoard>().IncrementSpeedIncreaseFactor(.25f);
+            timesIncreasedSpeed += 1;
+        }
+
+    }
     public void UpdateScore()
     {
         this.playerScore = knight.GetComponent<KnightScript>().highestBoardY;
@@ -58,21 +80,46 @@ public class BrainScript : MonoBehaviour
 
     public void Lose()
     {
+        hasLost = true;
+
         this.knight.GetComponent<KnightScript>().canMove = false;
         this.gameBoard.GetComponent<MovingBoard>().canMove = false;
 
-        gameOverMenu.SetActive(true);
-        pauseMenu.SetActive(false);
+        gameOverMessage.gameObject.SetActive(false);
+
+        //gameOverMenu.SetActive(true);
+        //pauseMenu.SetActive(false);
     }
 
     public void Pause()
     {
-        this.knight.GetComponent<KnightScript>().canMove = false;
-        this.gameBoard.GetComponent<MovingBoard>().canMove = false;
+        if (hasLost != true && isPaused == false)
+        {
+            isPaused = true;
 
-        pauseMenu.SetActive(true);
-        gameOverMenu.SetActive(false);
+            this.knight.GetComponent<KnightScript>().canMove = false;
+            this.gameBoard.GetComponent<MovingBoard>().canMove = false;
+        }
+        else if (isPaused == true)
+        {
+            Resume();
+        }
+        //pauseMenu.SetActive(true);
+        //gameOverMenu.SetActive(false);
     }
+
+    public void Resume()
+    {
+        if (hasLost != true)
+        {
+            isPaused = false;
+            this.knight.GetComponent<KnightScript>().canMove = true;
+            this.gameBoard.GetComponent<MovingBoard>().canMove = true;
+        }
+        //pauseMenu.SetActive(true);
+        //gameOverMenu.SetActive(false);
+    }
+
 
     public void Reset()
     {

@@ -49,8 +49,9 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(3.0f);
         SpawnRowNoEnemies(4.0f);
         SpawnRowNoEnemies(5.0f);
-        SpawnRowNoEnemies(6.0f);
-        SpawnRowNoEnemies(7.0f);
+        SpawnRowWithEnemies(6.0f);
+        SpawnRowWithEnemies(7.0f);
+
         //SpawnRowNoEnemies(8.0f);
 
 
@@ -91,10 +92,11 @@ public class MovingBoard : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.GetComponent<EnemyScript>().testAttack(knight))
+            if (enemy.GetComponent<EnemyScript>().testAttack(knight) == true)
             {
                 this.canMove = false;
                 knight.GetComponent<KnightScript>().canMove = false;
+                this.gameBrain.GetComponent<BrainScript>().Lose();
             }
 
             if (enemy.GetComponent<EnemyScript>().testDie(knight))
@@ -127,12 +129,12 @@ public class MovingBoard : MonoBehaviour
 
     public void IncrementSpeedIncreaseFactor()
     {
-        speedIncreaseFactor = speedIncreaseFactor * speedIncreaseFactor + 0.3f;
+        baseMovementSpeed = baseMovementSpeed + baseMovementSpeed * speedIncreaseFactor;
     }
 
     public void IncrementSpeedIncreaseFactor(float increaseToIncrease)
     {
-        speedIncreaseFactor = speedIncreaseFactor * speedIncreaseFactor + increaseToIncrease;
+        speedIncreaseFactor = speedIncreaseFactor + speedIncreaseFactor * increaseToIncrease;
     }
 
     private void CheckNeedSpawnRow()
