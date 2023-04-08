@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HomeNavigation : MonoBehaviour
+public class TutorialScript : MonoBehaviour
 {
-    public GameObject tutorialImage; 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,14 +17,8 @@ public class HomeNavigation : MonoBehaviour
         
     }
 
-    public void Tutorial()
+    void OnMouseDown()
     {
-
-        SceneManager.LoadScene("Tutorial");
-    }
-
-    public void StartGame()
-    {
-        SceneManager.LoadScene("GamePlay");
+        SceneManager.LoadScene("Home"); // Load the new scene
     }
 }

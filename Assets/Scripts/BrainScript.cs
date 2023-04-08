@@ -51,6 +51,13 @@ public class BrainScript : MonoBehaviour
         UpdateScoreLabels();
 
         IncreaseGameSpeed();
+
+        // checking if f or p button is pressed to pause the game (FREEZE!)
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+            Debug.Log("The 'f' or 'p' key was pressed.");
+        }
     }
 
     public void IncreaseGameSpeed()
