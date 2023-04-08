@@ -50,7 +50,7 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(4.0f);
         SpawnRowNoEnemies(5.0f);
         SpawnRowNoEnemies(6.0f);
-        SpawnRowNoEnemies(7.0f);
+        //SpawnRowNoEnemies(7.0f);
         //SpawnRowNoEnemies(8.0f);
 
 
@@ -71,7 +71,7 @@ public class MovingBoard : MonoBehaviour
 
 
         gameBrain.GetComponent<BrainScript>().knight = this.knight;
-
+        this.knight.GetComponent<KnightScript>().gameBrain = this.gameBrain;
     }
 
     // Update is called once per frame
@@ -84,21 +84,28 @@ public class MovingBoard : MonoBehaviour
             this.canMove = false;
             Debug.Log("died in spikes!");
         }
-        
+
 
         // checking all enemy units stats
-        foreach(GameObject enemy in enemies)
+        List<GameObject> enemiesToRemove = new List<GameObject>();
+
+        foreach (GameObject enemy in enemies)
         {
             if (enemy.GetComponent<EnemyScript>().testAttack(knight))
             {
                 this.canMove = false;
                 knight.GetComponent<KnightScript>().canMove = false;
             }
-            
+
             if (enemy.GetComponent<EnemyScript>().testDie(knight))
             {
-                enemies.Remove(enemy);
+                enemiesToRemove.Add(enemy);
             }
+        }
+
+        foreach (GameObject enemyToRemove in enemiesToRemove)
+        {
+            enemies.Remove(enemyToRemove);
         }
 
         if (canMove == true)
@@ -193,9 +200,9 @@ public class MovingBoard : MonoBehaviour
 
             if (spawnedEnemyInRow == false)
             {
-                if (TrySpawnRook(newTile, .5f) == true)
+                if (TrySpawnRook(newTile, .8f) == true)
                 { spawnedEnemyInRow = true; }
-                else if (TrySpawnBishop(newTile, .5f) == true)
+                else if (TrySpawnBishop(newTile, .3f) == true)
                 { spawnedEnemyInRow = true; }
             }
 

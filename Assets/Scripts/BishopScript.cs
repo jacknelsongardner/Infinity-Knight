@@ -27,13 +27,13 @@ public class BishopScript : EnemyScript
         if (actualHeight <= attackMaxHeight && actualHeight >= attackMinHeight)
         {
             // checking diagonal up left and down right
-            if (boardX - knightX == boardY - knightY)
+            if (boardX - knightX == boardY - knightY && boardX != knightX && boardY != knightY)
             {
                 takeKnight(knight);
                 return true;
             }
             // checking diagonal up right and down left
-            else if (boardX - knightX == -(boardY - knightY))
+            else if (boardX - knightX == -(boardY - knightY) && boardX != knightX && boardY != knightY)
             {
                 takeKnight(knight);
                 return true;
@@ -53,7 +53,7 @@ public class BishopScript : EnemyScript
                 return true;
             }
             // checking diagonal up right and down left
-            else if (boardX - enemyX == -(enemyY - enemyY))
+            else if (boardX - enemyX == -(boardY - enemyY))
             {
                 return true;
             }
