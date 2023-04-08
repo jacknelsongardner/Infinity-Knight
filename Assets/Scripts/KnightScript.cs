@@ -19,7 +19,8 @@ public class KnightScript : MonoBehaviour
 
     public bool canMove;
 
-    public float deathHeight;
+    public float deathHeightMin;
+    public float deathHeightMax;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,7 @@ public class KnightScript : MonoBehaviour
     {
         float actualHeight = this.transform.TransformPoint(this.transform.position).y;
 
-        if (actualHeight <= deathHeight)
+        if (actualHeight <= deathHeightMin || actualHeight >= deathHeightMax)
         {
             Debug.Log(actualHeight);
             this.canMove = false;
