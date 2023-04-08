@@ -47,7 +47,7 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(2.0f);
         SpawnRowNoEnemies(3.0f);
         SpawnRowNoEnemies(4.0f);
-        SpawnRowNoEnemies(5.0f);
+        //SpawnRowNoEnemies(5.0f);
         //SpawnRowNoEnemies(6.0f);
         //SpawnRowNoEnemies(7.0f);
         //SpawnRowNoEnemies(8.0f);
@@ -164,7 +164,7 @@ public class MovingBoard : MonoBehaviour
 
     private void SpawnRowWithEnemies(float atHeight)
     {
-        bool hasSpawnedEnemy = false;
+        bool spawnedEnemyInRow = false;
 
         for (float i = 0.0f; i < (float)boardWidth; i++)
         {
@@ -179,12 +179,12 @@ public class MovingBoard : MonoBehaviour
 
             newTile.GetComponent<TileScript>().boardParent = this.gameObject;
 
-            if (hasSpawnedEnemy == false)
+            if (spawnedEnemyInRow == false)
             {
-                if (TrySpawnRook(newTile, .2f) == true)
-                {
-                    hasSpawnedEnemy = true;
-                }
+                if (TrySpawnRook(newTile, .5f) == true)
+                { spawnedEnemyInRow = true; }
+                else if (TrySpawnBishop(newTile, .5f) == true)
+                { spawnedEnemyInRow = true; }
             }
 
             tiles.Add(newTile);
@@ -229,7 +229,43 @@ public class MovingBoard : MonoBehaviour
         
     }
 
+    private bool TrySpawnBishop(GameObject tile, float chance)
+    {
+        // Generate a random number between 0 and 1
+        float randomNumber = Random.Range(0f, 1f);
 
+        // Check if the random number is less than the chance
+        if (randomNumber < chance)
+        {
+            // placing knight on bottom left corner
+            BishopScript bishopScript = bishopPrefab.GetComponent<BishopScript>();
+
+            bishopScript.boardX = tile.GetComponent<TileScript>().boardX;
+            bishopScript.boardY = tile.GetComponent<TileScript>().boardY;
+
+            bishopScript.GetComponent<BishopScript>().boardParent = this.gameObject;
+
+            Vector3 newPosition = new Vector3(tile.GetComponent<Transform>().position.x,
+                                        tile.GetComponent<Transform>().position.y,
+                                        bishopScript.GetComponent<Transform>().position.z);
+
+            
+            if (this.CheckEnemyConflicts(bishopPrefab) == true)
+            {
+                return false;
+            }
+            
+
+            GameObject newBishop = Instantiate(bishopPrefab, newPosition, Quaternion.Euler(0, 0, 0));
+
+            enemies.Add(newBishop);
+
+            return true;
+        }
+
+        return false;
+
+    }
 
     public void Stop()
     {

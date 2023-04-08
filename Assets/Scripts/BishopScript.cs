@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RookScript : EnemyScript
+public class BishopScript : EnemyScript
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,15 +24,15 @@ public class RookScript : EnemyScript
 
         if (this.transform.position.y <= attackMaxHeight && this.transform.position.y >= attackMinHeight)
         {
-            if (knightX == boardX && knightY != boardY)
+            // checking diagonal up left and down right
+            if (boardX - knightX == boardY - knightY)
             {
-                Debug.Log("rook attacking horizontally");
                 takeKnight(knight);
                 return true;
             }
-            else if (knightX != boardX && knightY == boardY)
+            // checking diagonal up right and down left
+            else if (boardX - knightX == -(boardY - knightY))
             {
-                Debug.Log("rook attacking vertically");
                 takeKnight(knight);
                 return true;
             }
@@ -46,7 +45,13 @@ public class RookScript : EnemyScript
         int enemyX = enemy.GetComponent<EnemyScript>().boardX;
         int enemyY = enemy.GetComponent<EnemyScript>().boardY;
 
-            if (enemyX == boardX || enemyY == boardY)
+            // checking diagonal up left and down right
+            if (boardX - enemyX == boardY - enemyY)
+            {
+                return true;
+            }
+            // checking diagonal up right and down left
+            else if (boardX - enemyX == -(enemyY - enemyY))
             {
                 return true;
             }
