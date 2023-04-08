@@ -138,4 +138,9 @@ public class BrainScript : MonoBehaviour
         PlayerPrefs.SetInt("highScore", highScore);
     }
 
+    public void Home()
+    {
+        SceneManager.LoadScene("Home");
+    }
+
 }
