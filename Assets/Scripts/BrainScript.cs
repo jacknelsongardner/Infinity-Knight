@@ -5,6 +5,7 @@ using UnityEngine;
 public class BrainScript : MonoBehaviour
 {
     public GameObject knight;
+    public GameObject gameBoard;
 
     public int playerScore;
 

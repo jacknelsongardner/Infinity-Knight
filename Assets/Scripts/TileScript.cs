@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
-    public GameObject gameBrain;
-
+    public GameObject boardParent;
+    
     public int boardX;
     public int boardY;
 
@@ -15,9 +15,34 @@ public class TileScript : MonoBehaviour
     public Color lightTileColor;
     public Color obstacleColor;
 
+
+    public float killHeight;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        this.transform.SetParent(boardParent.transform);
+
+        CheckType();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        testKill();
+    }
+
+    public void testKill()
+    {
+        if (this.transform.position.y < killHeight)
+        {
+            Destroy(gameObject);
+        }
+    }
+    void CheckType()
+    {
+        // checking if this tile is an obstacle
         if (isObstacle == false)
         {
             if (boardX % 2 == 0 && boardY % 2 == 0)
@@ -49,17 +74,11 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnMouseDown()
     {
         if (isObstacle == false)
         {
-            gameBrain.GetComponent<BrainScript>().tileGotClicked(this.gameObject);
+            boardParent.GetComponent<MovingBoard>().tileGotClicked(this.gameObject);
             Debug.Log("clicked on a tile");
         }
         else if (isObstacle == true)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KnightScript : MonoBehaviour
 {
+    public GameObject boardParent;
+
     public int boardX;
     public int boardY;
 
@@ -19,12 +21,14 @@ public class KnightScript : MonoBehaviour
         ALIVE = 1;
 
         status = 1;
+
+        this.transform.SetParent(boardParent.transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public bool knightCanMove(int tileY, int tileX)
@@ -74,6 +78,8 @@ public class KnightScript : MonoBehaviour
             }
         }
 
+        Debug.Log("can't go there!!!" + tileY);
+        
         return false;
     }
 }
