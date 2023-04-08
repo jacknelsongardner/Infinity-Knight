@@ -6,6 +6,11 @@ public class BrainScript : MonoBehaviour
 {
     public GameObject knight;
 
+    public int playerScore;
+
+    public int level;
+    public int levelIncrements;
+
     public float gameSpeed;
 
     private int WIN;
