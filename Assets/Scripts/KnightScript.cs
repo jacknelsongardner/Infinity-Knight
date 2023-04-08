@@ -52,6 +52,8 @@ public class KnightScript : MonoBehaviour
         {
             Debug.Log(actualHeight);
             this.canMove = false;
+
+            gameBrain.GetComponent<BrainScript>().Lose();
             return true;
         }
 

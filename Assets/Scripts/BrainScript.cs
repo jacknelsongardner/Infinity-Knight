@@ -92,7 +92,7 @@ public class BrainScript : MonoBehaviour
         this.knight.GetComponent<KnightScript>().canMove = false;
         this.gameBoard.GetComponent<MovingBoard>().canMove = false;
 
-        gameOverMessage.gameObject.SetActive(false);
+        gameOverMessage.gameObject.SetActive(true);
 
         //gameOverMenu.SetActive(true);
         //pauseMenu.SetActive(false);
