@@ -51,7 +51,9 @@ public class EnemyScript : MonoBehaviour
 
     public bool testDestroy()
     {
-        if (this.transform.position.y <= this.killHeight)
+        float actualHeight = this.transform.TransformPoint(this.transform.position).y;
+
+        if (actualHeight <= this.killHeight)
         {
             Destroy(gameObject);
             return true;

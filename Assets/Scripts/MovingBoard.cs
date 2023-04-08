@@ -36,6 +36,7 @@ public class MovingBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         spaceMoved = 0;
         speedIncreaseFactor = 1;
 
@@ -47,9 +48,9 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(2.0f);
         SpawnRowNoEnemies(3.0f);
         SpawnRowNoEnemies(4.0f);
-        //SpawnRowNoEnemies(5.0f);
-        //SpawnRowNoEnemies(6.0f);
-        //SpawnRowNoEnemies(7.0f);
+        SpawnRowNoEnemies(5.0f);
+        SpawnRowNoEnemies(6.0f);
+        SpawnRowNoEnemies(7.0f);
         //SpawnRowNoEnemies(8.0f);
 
 
@@ -67,12 +68,23 @@ public class MovingBoard : MonoBehaviour
         GameObject newKnight = Instantiate(knightPrefab, newPosition, Quaternion.Euler(0, 0, 0));
         newKnight.GetComponent<KnightScript>().boardParent = this.gameObject;
         this.knight = newKnight;
-        
+
+
+        gameBrain.GetComponent<BrainScript>().knight = this.knight;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        // checking if knight has fallen behind
+        if (knight.GetComponent<KnightScript>().testHeightDeath())
+        {
+            this.canMove = false;
+            Debug.Log("died in spikes!");
+        }
+        
 
         // checking all enemy units stats
         foreach(GameObject enemy in enemies)

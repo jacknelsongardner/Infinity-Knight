@@ -94,9 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416a7926020d77d49bc88be4feb246e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardX: 4
+  boardX: 2
   boardY: 8
   boardParent: {fileID: 0}
   attackMaxHeight: 2.5
   attackMinHeight: -2.5
-  killHeight: -10
+  killHeight: -8

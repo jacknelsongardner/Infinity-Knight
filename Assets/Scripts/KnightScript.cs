@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class KnightScript : MonoBehaviour
 {
+    public GameObject gameBrain;
     public GameObject boardParent;
 
     public int boardX;
     public int boardY;
+
+    public int highestBoardY;
 
     private int DEAD;
     private int ALIVE;
@@ -16,12 +19,15 @@ public class KnightScript : MonoBehaviour
 
     public bool canMove;
 
+    public float deathHeight;
+
     // Start is called before the first frame update
     void Start()
     {
         DEAD = 0;
         ALIVE = 1;
 
+        highestBoardY = 0;
         status = 1;
 
         canMove = true;
@@ -32,7 +38,25 @@ public class KnightScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (highestBoardY < boardY)
+        {
+            highestBoardY = boardY;
+        }
+    }
 
+    public bool testHeightDeath()
+    {
+        float actualHeight = this.transform.TransformPoint(this.transform.position).y;
+
+        if (actualHeight <= deathHeight)
+        {
+            Debug.Log(actualHeight);
+            this.canMove = false;
+            return true;
+        }
+
+        return false;
+        
     }
 
     public bool knightCanMove(int tileY, int tileX)

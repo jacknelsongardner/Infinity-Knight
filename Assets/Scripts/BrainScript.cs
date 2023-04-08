@@ -8,6 +8,8 @@ public class BrainScript : MonoBehaviour
 
     public GameObject gameBoard;
 
+    public GameObject knight;
+
     public int playerScore;
 
     public int level;
@@ -31,7 +33,7 @@ public class BrainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.playerScore = knight.GetComponent<KnightScript>().highestBoardY;
     }
 
     public void Lose()

@@ -22,7 +22,9 @@ public class BishopScript : EnemyScript
         int knightX = knight.GetComponent<KnightScript>().boardX;
         int knightY = knight.GetComponent<KnightScript>().boardY;
 
-        if (this.transform.position.y <= attackMaxHeight && this.transform.position.y >= attackMinHeight)
+        float actualHeight = this.transform.TransformPoint(this.transform.position).y;
+
+        if (actualHeight <= attackMaxHeight && actualHeight >= attackMinHeight)
         {
             // checking diagonal up left and down right
             if (boardX - knightX == boardY - knightY)
