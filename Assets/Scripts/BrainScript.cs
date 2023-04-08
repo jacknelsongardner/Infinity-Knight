@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BrainScript : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class BrainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        LoadScore();
     }
 
     // Update is called once per frame
@@ -81,12 +82,13 @@ public class BrainScript : MonoBehaviour
 
     public void LoadScore()
     {
+        highScore = PlayerPrefs.GetInt("highScore");
 
     }
 
     public void SaveScore()
     {
-
+        PlayerPrefs.SetInt("highScore", highScore);
     }
 
 }

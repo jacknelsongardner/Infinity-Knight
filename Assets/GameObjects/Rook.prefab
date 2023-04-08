@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardX: 2
-  boardY: 8
+  boardY: 10
   boardParent: {fileID: 0}
-  attackMaxHeight: 2.5
+  attackMaxHeight: 1.5
   attackMinHeight: -2.5
   killHeight: -8

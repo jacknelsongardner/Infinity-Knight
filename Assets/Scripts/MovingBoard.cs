@@ -50,7 +50,7 @@ public class MovingBoard : MonoBehaviour
         SpawnRowNoEnemies(4.0f);
         SpawnRowNoEnemies(5.0f);
         SpawnRowNoEnemies(6.0f);
-        //SpawnRowNoEnemies(7.0f);
+        SpawnRowNoEnemies(7.0f);
         //SpawnRowNoEnemies(8.0f);
 
 
